@@ -5,6 +5,7 @@
 # Don't forget to use Mutex Name in PRTG so devices get polled round robin and not all at once.  eg.: badgerCH1 or badgerCH2
 # This script will also attempt to read a CVS file from a folder named Badger_Points within the same script directory to pre-name your Badger Channels in the format of xxxxx-##.csv  
 # where xxxxx is any text and ## is the badger address.
+# https://github.com/pir8radio/PRTG-Badger-481-Sensor-Script
 
 param (
     [string]$badgerAddress,
