@@ -4,7 +4,7 @@ This PowerShell script connects to a Badger RTU (Remote Terminal Unit) via a TCP
 
 ## Features
 
-- Connects to a Badger RTU over TCP/IP  
+- Connects to a Badger RTU over TCP/IP via a common serial server device.
 - Reads bistate point values (1–32)  
 - Supports custom channel names via CSV  
 - Implements retry logic for robust communication  
@@ -20,7 +20,7 @@ This PowerShell script connects to a Badger RTU (Remote Terminal Unit) via a TCP
 
 ## Retry Logic
 
-The script attempts to connect and communicate with the RTU up to **4 times** (1 initial attempt + 3 retries).  
+The script attempts to connect and communicate with the Badger up to **4 times** (1 initial attempt + 3 retries).  
 If all attempts fail, it returns an error in XML format for PRTG to process.
 
 ## CSV Channel Mapping
