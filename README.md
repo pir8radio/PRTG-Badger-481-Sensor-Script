@@ -1,6 +1,6 @@
 # Badger RTU Bistate Monitor for PRTG
 
-This PowerShell script connects to a Badger RTU (Remote Terminal Unit) via a TCP serial server, reads bistate point values, and returns XML output formatted for PRTG Network Monitor.
+This PowerShell script connects to a Badger RTU (Remote Terminal Unit) via a TCP serial server, reads bistate point values, and returns XML output formatted for PRTG Network Monitor. This barely scratches the surface of fully utilizing the Badger 481 protocol. I only needed to integrate the binary inputs into PRTG, so I used a protocol analyzer to observe a functioning system and extract the necessary information to accomplish this.
 
 ## Features
 
