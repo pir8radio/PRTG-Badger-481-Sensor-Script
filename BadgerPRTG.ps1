@@ -98,6 +98,19 @@ try {
             $response1 = Send-Command -stream $stream -command $command1.ToArray()
             $response2 = Send-Command -stream $stream -command $command2.ToArray()
 
+            # Reset COS flags after reading bistate points
+            $reset1 = [System.Collections.Generic.List[byte]]::new()
+            $reset1.Add(0x91)  # _C_RF1
+            $reset1.Add([byte]$badgerAddress)
+            $reset1.Add((CalculateLRC -data $reset1.ToArray()))
+            Send-Command -stream $stream -command $reset1.ToArray()
+
+            $reset2 = [System.Collections.Generic.List[byte]]::new()
+            $reset2.Add(0x92)  # _C_RF2
+            $reset2.Add([byte]$badgerAddress)
+            $reset2.Add((CalculateLRC -data $reset2.ToArray()))
+            Send-Command -stream $stream -command $reset2.ToArray()
+
             $success = $true
         }
         catch {
