@@ -32,7 +32,7 @@ If all attempts fail, it returns an error in XML format for PRTG to process.
 Place a CSV file named like `*-<BadgerAddress>.csv` in the `Badger_Points` folder.  
 The script reads channel names from this file, skipping the first two lines (metadata and blank).  
 Points labeled `"SPARE"` are ignored.  
-Template provided in this project - Example "SITE 123-18.xls" (site_name-badger_address.xls)
+Template provided in this project - Example "SITE 123-18.xls" (site_name-badger_address.xls) then export as csv.
 
 ## Example Usage
 
