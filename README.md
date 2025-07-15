@@ -10,7 +10,7 @@ The script connects to a Badger RTU (Remote Terminal Unit) via a TCP serial serv
 
 - Connects to a Badger RTU over TCP/IP via a common serial server device.
 - Reads bistate point values (1–32)  
-- Supports custom channel names via CSV - Example SITE 123-18.xls File provided
+- Supports custom channel names via CSV - Example SITE 123-18.xls File provided (site_name-badger_address.xls)
 - Implements retry logic for robust communication  
 - Outputs XML compatible with PRTG custom sensors  
 
