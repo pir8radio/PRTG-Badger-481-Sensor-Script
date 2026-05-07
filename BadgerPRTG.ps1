@@ -92,13 +92,34 @@ try {
             $client = New-Object System.Net.Sockets.TcpClient
             $client.Connect($remoteIP, $remotePort)
             $stream = $client.GetStream()
-            $stream.ReadTimeout = 2000
+            $stream.ReadTimeout = 6000
             $stream.WriteTimeout = 2000
 
-            $response1 = Send-Command -stream $stream -command $command1.ToArray()
-            $response2 = Send-Command -stream $stream -command $command2.ToArray()
+            # -------- First read (A) --------
+            $response1a = Send-Command -stream $stream -command $command1.ToArray()
+            $response2a = Send-Command -stream $stream -command $command2.ToArray()
 
-            # Reset COS flags after reading bistate points
+            Start-Sleep -Milliseconds 500
+
+            # -------- Second read (B) --------
+            $response1b = Send-Command -stream $stream -command $command1.ToArray()
+            $response2b = Send-Command -stream $stream -command $command2.ToArray()
+
+            # -------- Compare A vs B --------
+            $stream1Match = ($response1a -join ',') -eq ($response1b -join ',')
+            $stream2Match = ($response2a -join ',') -eq ($response2b -join ',')
+
+            if (-not ($stream1Match -and $stream2Match)) {
+                throw "Stream data mismatch between A and B reads."
+            }
+
+            Write-Host "Stream validation passed (A = B for both streams)."
+
+            # Use the validated data (A set) for downstream processing
+            $response1 = $response1a
+            $response2 = $response2a
+
+            # -------- Reset COS flags AFTER validation --------
             $reset1 = [System.Collections.Generic.List[byte]]::new()
             $reset1.Add(0x91)  # _C_RF1
             $reset1.Add([byte]$badgerAddress)
@@ -117,10 +138,9 @@ try {
             Write-Warning "Attempt $attempt failed: $($_.Exception.Message)"
             if ($stream) { $stream.Close() }
             if ($client) { $client.Close() }
-            Start-Sleep -Seconds 1
+            Start-Sleep -Milliseconds 500
         }
     }
-
     if (-not $success) {
         throw "Failed to communicate with Badger unit after $maxRetries attempts."
     }
