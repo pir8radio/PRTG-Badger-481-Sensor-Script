@@ -24,7 +24,8 @@ The script connects to a Badger RTU (Remote Terminal Unit) via a TCP serial serv
 
 ## Retry Logic
 
-The script attempts to connect and communicate with the Badger up to **4 times** (1 initial attempt + 3 retries).  
+The script attempts to connect and communicate with the Badger up to **4 times** (1 initial attempt + 3 retries). 
+Also will attempt to flush out noise on the audio line by scanning the alarms twice and comparing the back to back scans, if they are the same then send to PRTG.
 If all attempts fail, it returns an error in XML format for PRTG to process.
 
 ## CSV Channel Mapping
